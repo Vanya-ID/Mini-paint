@@ -15,7 +15,9 @@ import {FormButton} from "../../styles";
 import {ImageNameModal} from "../../ImageNameModal/ImageNameModal";
 import {InstrumentsType, setInstrument} from "../../../store/reducers/drawReducer";
 import {useDispatch} from "react-redux";
+// @ts-ignore
 import brush from '../../../assets/brush.png'
+// @ts-ignore
 import eraser from '../../../assets/eraser.png'
 
 type CanvasItemsPropsType = {

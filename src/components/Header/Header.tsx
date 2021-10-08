@@ -9,7 +9,7 @@ import {getAuthenticated} from "../../reselects/reselect";
 export const Header: FC = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const {authenticated} = useSelector(getAuthenticated)
+    const authenticated = useSelector(getAuthenticated)
 
     const logoutClickHandler = () => {
         dispatch(signout())

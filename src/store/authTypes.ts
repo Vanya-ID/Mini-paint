@@ -17,7 +17,6 @@ export interface AuthState {
     authenticated: boolean
     loading: boolean
     error: string
-    needVerification: boolean
     success: string
 }
 
