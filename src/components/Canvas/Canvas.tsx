@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {selectInstrument} from "../../reselects/reselect";
 import {drawing} from "./CanvasItems/drawFunctions/drawing";
 
+let startX = 0, startY = 0, saved = '';
 
 export const Canvas: FC = React.memo(() => {
 
@@ -13,7 +14,6 @@ export const Canvas: FC = React.memo(() => {
     const [isDrawing, setIsDrawing] = useState<boolean>(false)
     const [strokeStyle, setStrokeStyle] = useState<string>('')
     const [lineWidth, setLineWidth] = useState<number>(5)
-
     const selectedInstrument = useSelector(selectInstrument)
 
     useEffect(() => {
@@ -46,7 +46,6 @@ export const Canvas: FC = React.memo(() => {
         canvas = canvasRef.current
     }
 
-    let startX = 0, startY = 0, saved = '';
     const startDrawing = ({nativeEvent}: MouseEvent<HTMLCanvasElement>) => {
         saved = canvas?.toDataURL() ?? ''
         context?.beginPath()

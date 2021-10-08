@@ -14,12 +14,17 @@ export const Header: FC = () => {
     const logoutClickHandler = () => {
         dispatch(signout())
     }
-
+    console.log(authenticated)
     return (
         <HeaderContainer>
             <div>
-                <NavLink activeStyle={{color: '#ac9c8e'}} to={!authenticated ? '/' : '/images'}>Images</NavLink>
-                <NavLink activeStyle={{color: '#ac9c8e'}} to={!authenticated ? '/' : '/dashboard'}>Paint</NavLink>
+                {authenticated
+                    ? <>
+                        <NavLink activeStyle={{color: '#ac9c8e'}} to={!authenticated ? '/' : '/images'}>Images</NavLink>
+                        <NavLink activeStyle={{color: '#ac9c8e'}}
+                                 to={!authenticated ? '/' : '/dashboard'}>Paint</NavLink>
+                    </>
+                    : null}
             </div>
             <div>
                 {!authenticated ?

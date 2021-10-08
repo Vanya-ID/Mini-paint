@@ -61,7 +61,7 @@ export const Login: FC<LoginPropsType> = ({type}) => {
                     <Message msg={error ? error : success} type={`${error ? 'danger' : 'success'}`}/>
                     {type === 'Sign Up' && <Input
                         label={'First name'}
-                        placeholder={'First name'}
+                        placeholder={'first name'}
                         name={'Firstname'}
                         value={firstName}
                         onChange={(e) => setFirstName(e.currentTarget.value)}
