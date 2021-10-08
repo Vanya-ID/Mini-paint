@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/Mini-paint/static/js/main.097d41d1.chunk.js",
+    "main.js.map": "/Mini-paint/static/js/main.097d41d1.chunk.js.map",
+    "runtime-main.js": "/Mini-paint/static/js/runtime-main.0814fdaa.js",
+    "runtime-main.js.map": "/Mini-paint/static/js/runtime-main.0814fdaa.js.map",
+    "static/js/2.29b5d3e7.chunk.js": "/Mini-paint/static/js/2.29b5d3e7.chunk.js",
+    "static/js/2.29b5d3e7.chunk.js.map": "/Mini-paint/static/js/2.29b5d3e7.chunk.js.map",
+    "index.html": "/Mini-paint/index.html",
+    "static/js/2.29b5d3e7.chunk.js.LICENSE.txt": "/Mini-paint/static/js/2.29b5d3e7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0814fdaa.js",
+    "static/js/2.29b5d3e7.chunk.js",
+    "static/js/main.097d41d1.chunk.js"
+  ]
+}
