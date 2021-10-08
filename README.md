@@ -8,4 +8,4 @@ npm run
 
 ## Database snapshot
 #### storage 
-(./storage.png)
+./storage.png
