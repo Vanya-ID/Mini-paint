@@ -14,7 +14,6 @@ export const Header: FC = () => {
     const logoutClickHandler = () => {
         dispatch(signout())
     }
-    console.log(authenticated)
     return (
         <HeaderContainer>
             <div>
