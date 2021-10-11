@@ -1,9 +1,9 @@
-import React, {FC, MouseEvent, useEffect, useRef, useState} from "react";
-import {CanvasItems} from "./CanvasItems/CanvasItems";
+import React, {FC, MouseEvent, useCallback, useEffect, useRef, useState} from "react";
 import {CanvasContainer} from "./Canvas.style";
 import {useSelector} from "react-redux";
 import {selectInstrument} from "../../reselects/reselect";
-import {drawing} from "./CanvasItems/drawFunctions/drawing";
+import {drawing} from "./utils/drawFunctions/drawing";
+import {CanvasItems} from "../CanvasItems/CanvasItems";
 
 let startX = 0, startY = 0, saved = '';
 
@@ -18,7 +18,7 @@ export const Canvas: FC = React.memo(() => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (canvas === null) throw new Error('Could not get сфтмфы');
+        if (canvas === null) throw new Error('Could not get canvas');
         canvas.width = 900
         canvas.height = 450
         canvas.style.width = `${canvas.width}px`
@@ -41,12 +41,8 @@ export const Canvas: FC = React.memo(() => {
     let context = contextRef.current;
     let canvas = canvasRef.current;
 
-    if (contextRef && canvasRef) {
-        context = contextRef.current
-        canvas = canvasRef.current
-    }
 
-    const startDrawing = ({nativeEvent}: MouseEvent<HTMLCanvasElement>) => {
+    const startDrawing = useCallback(({nativeEvent}: MouseEvent<HTMLCanvasElement>) => {
         saved = canvas?.toDataURL() ?? ''
         context?.beginPath()
         const {offsetX, offsetY} = nativeEvent
@@ -54,7 +50,8 @@ export const Canvas: FC = React.memo(() => {
         startY = offsetY;
         context?.moveTo(offsetX, offsetY)
         setIsDrawing(true)
-    }
+    }, [canvas, context])
+
     const {draw} = drawing({
         selectedInstrument,
         context,
@@ -65,10 +62,10 @@ export const Canvas: FC = React.memo(() => {
         startY
     })
 
-    const finishDrawing = () => {
+    const finishDrawing = useCallback(() => {
         context?.closePath()
         setIsDrawing(false)
-    }
+    }, [context])
 
     return (
         <CanvasContainer>

@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setSuccess} from "../../actions/authActions/authActions";
 import {Canvas} from "../Canvas/Canvas";
 import {DashBoardContainer} from "./DashBoard.style";
-import {fetchImagesTC} from "../../store/reducers/imagesReducer";
 import {getSuccess, getUserName} from "../../reselects/reselect";
+import {setSuccess} from "../../store/tasks/thunks/auth/setSuccess/setSuccess";
+import {fetchImagesTC} from "../../store/tasks/thunks/images/fetchImagesTC/fetchImagesTC";
 
 export const DashBoard: FC = React.memo(() => {
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FlexCenter} from "../styles";
+import {FlexCenter} from "../../shared/styles";
 
 export const CollectionsContainer = styled.div`
   background-color: ${props => props.theme.backgroundColor.main};

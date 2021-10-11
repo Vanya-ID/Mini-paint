@@ -5,7 +5,7 @@ export type MsgProps = {
 }
 
 export const MessageBlock = styled.article<MsgProps>`
-  color: ${({type}) => type === 'danger' ? 'red' : 'green'};
+  color: ${(props) => props.type === 'danger' ? props.theme.textColors.danger : props.theme.textColors.success};
   font-weight: bold;
   position: relative;
   min-height: 35px;

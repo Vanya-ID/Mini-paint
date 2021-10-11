@@ -10,9 +10,7 @@ export const CanvasContainer = styled.div`
   border: 4px solid ${props => props.theme.borders.paint};
   border-radius: 10px;
 
-  background-color: #ff0000;
-
   canvas {
-    background-color: white;
+    background-color: ${props => props.theme.backgroundColor.light};
   }
 `

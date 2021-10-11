@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FlexCenter} from "../styles";
+import {FlexCenter} from "../../shared/styles";
 
 export const DashBoardContainer = styled.div`
   color: ${props => props.theme.textColors.main};
@@ -7,12 +7,4 @@ export const DashBoardContainer = styled.div`
   overflow-y: hidden;
   ${FlexCenter};
   min-width: 1300px;
-`
-
-export const PaintWrapper = styled.div`
-  padding: 20px;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  border: 2px solid red;
 `

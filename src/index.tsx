@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './firebase/firebase'
 import {Provider} from "react-redux";
 import store from "./store";
-import './firebase/firebase'
 
 ReactDOM.render(
     <React.StrictMode>

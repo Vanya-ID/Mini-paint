@@ -1,18 +1,12 @@
-import React, {ChangeEvent, KeyboardEvent, RefObject, useCallback, useState} from "react";
-import {FormButton} from "../styles";
-import {CloseModal, Modal, ModalBackground, ModalContainer} from "./ImageNameModal.module";
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
+import {FormButton} from "../../shared/styles";
+import {CloseModal, Modal, ModalBackground, ModalContainer} from "./ImageNameModal.style";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserName} from "../../reselects/reselect";
-import {saveImageTC} from "../../store/reducers/imagesReducer";
+import {saveImageTC} from "../../store/tasks/thunks/images/saveImageTC/saveImageTC";
+import {ModalProps} from "./ImageNameModal.type";
 
-type ModalProps = {
-    closeModal: (value: boolean) => void
-    title: string
-    canvasRef: RefObject<HTMLCanvasElement>
-}
-
-export const ImageNameModal: React.FC<ModalProps> = props => {
-    const {closeModal, title, canvasRef} = props
+export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, title, canvasRef}) => {
     const [text, setText] = useState<string>('')
 
     const dispatch = useDispatch()
@@ -27,30 +21,34 @@ export const ImageNameModal: React.FC<ModalProps> = props => {
         closeModal(false)
     }, [canvasRef, closeModal, dispatch, text])
 
-    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setText(e.currentTarget.value)
-    }
+    }, [])
 
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') saveImg()
-    }
+    }, [saveImg])
+
+    const closeModalHelper = useCallback(() => {
+        closeModal(false)
+    }, [closeModal])
 
 
     return (
         <>
-            <ModalBackground onClick={() => closeModal(false)}/>
+            <ModalBackground onClick={closeModalHelper}/>
             <Modal>
-                <CloseModal onClick={() => closeModal(false)}>X</CloseModal>
+                <CloseModal onClick={closeModalHelper}>X</CloseModal>
                 <ModalContainer>
                     <h2> {title}</h2>
                     <input value={text} onKeyDown={onKeyDownHandler} onChange={inputChangeHandler}
-                           placeholder={'image name...'}
+                           placeholder='image name...'
                            type="text"/>
-                    <FormButton disabled={!text || text.length >= 20} onClick={saveImg} marginRight={'0'}
-                                text={'Save'}/>
+                    <FormButton disabled={!text || text.length >= 20} onClick={saveImg} marginRight='0'
+                                text='Save'/>
                 </ModalContainer>
             </Modal>
         </>
 
     )
-}
+})
