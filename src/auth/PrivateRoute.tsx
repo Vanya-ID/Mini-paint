@@ -12,6 +12,6 @@ export const PrivateRoute: FC<Props> = ({component: Component, ...rest}) => {
     const authenticated = useSelector(getAuthenticated)
 
     return (
-        <Route{...rest} render={props => authenticated ? <Component {...props} /> : <Redirect to={'/signin'}/>}/>
+        <Route{...rest} render={props => authenticated ? <Component {...props} /> : <Redirect to={'/signinTC'}/>}/>
     )
 }

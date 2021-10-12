@@ -14,7 +14,6 @@ import {
 import {FormButton} from "../../shared/styles";
 import {ImageNameModal} from "../ImageNameModal/ImageNameModal";
 import {useDispatch} from "react-redux";
-import {setInstrument} from "../../store/actions/drawActions/setInstrument";
 import {InstrumentsType} from "../../store/reducers/drawReducer/drawTypes";
 
 // @ts-ignore
@@ -22,6 +21,7 @@ import brush from '../../assets/brush.png'
 // @ts-ignore
 import eraser from '../../assets/eraser.png'
 import {CanvasItemsPropsType} from "./CanvasItems.type";
+import {setInstrument} from "../../store/reducers/drawReducer/drawReducer";
 
 export const CanvasItems: FC<CanvasItemsPropsType> = React.memo(({
                                                                      setLineWidth,
@@ -46,7 +46,7 @@ export const CanvasItems: FC<CanvasItemsPropsType> = React.memo(({
     }, [])
 
     const setTool = useCallback((instrument: InstrumentsType) => {
-        dispatch(setInstrument(instrument))
+        dispatch(setInstrument({instrument}))
     }, [dispatch])
 
 
@@ -57,8 +57,7 @@ export const CanvasItems: FC<CanvasItemsPropsType> = React.memo(({
     const circleHandler = useCallback(() => setTool('circle'), [setTool])
     const brushHandler = useCallback(() => {
         setTool('brush')
-        setStrokeStyle('#000000')
-    }, [setTool, setStrokeStyle])
+    }, [setTool])
     const eraserHandler = useCallback(() => {
         setTool('brush')
         setStrokeStyle('#ffffff')

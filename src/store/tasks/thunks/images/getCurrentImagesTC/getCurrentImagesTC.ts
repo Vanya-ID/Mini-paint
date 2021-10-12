@@ -1,22 +1,12 @@
-import {Dispatch} from "redux";
-import {ImgType} from "../../../../reducers/imagesReducer/imagesType";
-import {GET_CURRENT_IMAGES} from "../../../../../constants/constants";
 import {storageWorker} from "../../../../../imagesWorker/storageWorker/storageWorker";
+import {setCurrentImages} from "../../../../reducers/imagesReducer/imagesReducer";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-
-export const setCurrentImagesAC = (payload: ImgType[], userName: string) => ({
-    type: GET_CURRENT_IMAGES,
-    payload,
-    userName
-} as const)
-
-export const getCurrentImagesTC = (userName: string) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            const response = await storageWorker.getCurrentImages()
-            dispatch(setCurrentImagesAC(response, userName))
-        } catch (e) {
-            console.log(e)
-        }
+export const getCurrentImagesTC = createAsyncThunk('images/getCurrentImages', async (userName: string, thunkAPI) => {
+    try {
+        let response = await storageWorker.getCurrentImages()
+        thunkAPI.dispatch(setCurrentImages({currentImages: response, userName}))
+    } catch (e) {
+        console.log(e)
     }
-}
+})

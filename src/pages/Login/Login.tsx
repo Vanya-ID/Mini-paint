@@ -6,9 +6,8 @@ import {FormContainer, FormSection, FormWrapper} from "./Login.style";
 import {Message} from "../../components/Message/Message";
 import {FormButton} from "../../shared/styles";
 import {getError, getSuccess} from "../../reselects/reselect";
-import {setError} from "../../store/tasks/thunks/auth/setError/setError";
-import {setSuccess} from "../../store/tasks/thunks/auth/setSuccess/setSuccess";
 import {LoginPropsType} from "./Login.type";
+import {setError, setSuccess} from "../../store/reducers/authReducer/authReducer";
 
 
 export const Login: FC<LoginPropsType> = React.memo(({type, eventFunction}) => {
@@ -24,10 +23,10 @@ export const Login: FC<LoginPropsType> = React.memo(({type, eventFunction}) => {
     useEffect(() => {
         return () => {
             if (error) {
-                dispatch(setError(''))
+                dispatch(setError({error: ''}))
             }
             if (success) {
-                dispatch(setSuccess(' '))
+                dispatch(setSuccess({success: ''}))
             }
         }
     }, [error, dispatch, success])
@@ -62,8 +61,8 @@ export const Login: FC<LoginPropsType> = React.memo(({type, eventFunction}) => {
                         value={email}
                         onChange={(e) => {
                             setEmail(e.currentTarget.value)
-                            dispatch(setError(''))
-                            dispatch(setSuccess(''))
+                            dispatch(setError({error: ''}))
+                            dispatch(setSuccess({success: ''}))
                         }}
                     />
                     {type !== 'Reset Password' && <Input

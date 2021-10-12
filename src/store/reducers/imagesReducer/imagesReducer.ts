@@ -1,51 +1,29 @@
-import {ImgType, SaveActionTypes} from "./imagesType";
-import {GET_ALL_IMAGES, GET_CURRENT_IMAGES, SAVE_IMAGE, SET_ALL_IMAGES} from "../../../constants/constants";
+import {ImgType} from "./imagesType";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-const initialState = [] as ImgType[]
-
-export const imagesReducer = (state: ImgType[] = initialState, action: SaveActionTypes): ImgType[] => {
-    switch (action.type) {
-        case SAVE_IMAGE: {
-            return [
-                {
-                    imageName: action.imageName,
-                    imgURL: action.imgURL,
-                    userName: action.userName
-                },
-                ...state
-            ]
-        }
-        case SET_ALL_IMAGES: {
-            return action.payload.map((el: ImgType) => {
-                return {
-                    imageName: el.imageName,
-                    imgURL: el.imgURL,
-                    userName: el.userName
-                }
-            })
-        }
-        case GET_ALL_IMAGES: {
-            return action.payload.map((el: ImgType) => {
-                return {
-                    imageName: el.imageName,
-                    imgURL: el.imgURL,
-                    userName: el.userName
-                }
-            })
-        }
-        case GET_CURRENT_IMAGES: {
-            return action.payload.map((el: ImgType) => {
-                return {
-                    imageName: el.imageName,
-                    imgURL: el.imgURL,
-                    userName: el.userName
-                }
-            }).filter((el: ImgType) => el.userName.toLowerCase() === action.userName.toLowerCase())
-        }
-        default:
-            return state
-    }
-
+const initialState = {
+    images: [] as ImgType[],
 }
+
+const slice = createSlice({
+    name: 'images',
+    initialState: initialState,
+    reducers: {
+        saveImage(state, action: PayloadAction<ImgType>) {
+            state.images.unshift(action.payload)
+        },
+        setCurrentImages(state, action:  PayloadAction<{currentImages: ImgType[], userName:string}>) {
+            state.images = action.payload.currentImages.filter(el => el.userName.toLowerCase() === action.payload.userName.toLowerCase())
+        },
+        getAllImages(state, action: PayloadAction<ImgType[]>) {
+            state.images = action.payload
+        },
+    }
+})
+
+export const {saveImage, setCurrentImages, getAllImages} = slice.actions
+
+export const imagesReducer = slice.reducer
+
 
 

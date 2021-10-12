@@ -7,7 +7,7 @@ import {saveImageTC} from "../../store/tasks/thunks/images/saveImageTC/saveImage
 import {ModalProps} from "./ImageNameModal.type";
 
 export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, title, canvasRef}) => {
-    const [text, setText] = useState<string>('')
+    const [imageName, setImageName] = useState<string>('')
 
     const dispatch = useDispatch()
 
@@ -16,13 +16,12 @@ export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, tit
     const saveImg = useCallback(() => {
         if (canvasRef.current === null) throw new Error('Could not get сфтмфы');
         const imgURL = canvasRef.current.toDataURL()
-
-        dispatch(saveImageTC(imgURL, text, userName as string))
+        if (userName) dispatch(saveImageTC({imgURL, imageName, userName}))
         closeModal(false)
-    }, [canvasRef, closeModal, dispatch, text])
+    }, [canvasRef, closeModal, dispatch, imageName])
 
     const inputChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        setText(e.currentTarget.value)
+        setImageName(e.currentTarget.value)
     }, [])
 
     const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
@@ -41,10 +40,10 @@ export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, tit
                 <CloseModal onClick={closeModalHelper}>X</CloseModal>
                 <ModalContainer>
                     <h2> {title}</h2>
-                    <input value={text} onKeyDown={onKeyDownHandler} onChange={inputChangeHandler}
+                    <input value={imageName} onKeyDown={onKeyDownHandler} onChange={inputChangeHandler}
                            placeholder='image name...'
                            type="text"/>
-                    <FormButton disabled={!text || text.length >= 20} onClick={saveImg} marginRight='0'
+                    <FormButton disabled={!imageName || imageName.length >= 20} onClick={saveImg} marginRight='0'
                                 text='Save'/>
                 </ModalContainer>
             </Modal>

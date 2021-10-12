@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {Canvas} from "../Canvas/Canvas";
 import {DashBoardContainer} from "./DashBoard.style";
 import {getSuccess, getUserName} from "../../reselects/reselect";
-import {setSuccess} from "../../store/tasks/thunks/auth/setSuccess/setSuccess";
-import {fetchImagesTC} from "../../store/tasks/thunks/images/fetchImagesTC/fetchImagesTC";
+import {getAllImagesTC} from "../../store/tasks/thunks/images/getAllImagesTC/getAllImagesTC";
+import {setSuccess} from "../../store/reducers/authReducer/authReducer";
 
 export const DashBoard: FC = React.memo(() => {
 
@@ -13,10 +13,10 @@ export const DashBoard: FC = React.memo(() => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(fetchImagesTC())
+        dispatch(getAllImagesTC())
         return () => {
             if (success) {
-                dispatch(setSuccess(' '))
+                dispatch(setSuccess({success:' '}))
             }
         }
     }, [dispatch, success])

@@ -1,19 +1,20 @@
-import {SET_INSTRUMENT} from "../../../constants/constants";
-import {DrawActionTypes, InitialType} from "./drawTypes";
+import {InitialType, InstrumentsType} from "./drawTypes";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: InitialType = {
     instrument: 'brush'
 }
 
-export const drawReducer = (state = initialState, action: DrawActionTypes): InitialType => {
-    switch (action.type) {
-        case SET_INSTRUMENT:
-            return {
-                ...state,
-                instrument: action.instrument
-            }
-        default:
-            return state
+const slice = createSlice({
+    name: 'draw',
+    initialState: initialState,
+    reducers: {
+        setInstrument(state, action: PayloadAction<{ instrument: InstrumentsType }>) {
+            state.instrument = action.payload.instrument
+        }
     }
-}
+})
+export const {setInstrument} = slice.actions
+
+export const drawReducer = slice.reducer
 

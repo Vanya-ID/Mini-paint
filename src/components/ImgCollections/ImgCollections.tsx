@@ -24,7 +24,7 @@ export const ImgCollections: FC = React.memo(() => {
         if (!inputText) {
             await dispatch(getAllImagesTC())
         } else {
-            await dispatch(getCurrentImagesTC(inputText))
+             await dispatch(getCurrentImagesTC(inputText))
         }
     }, [inputText, dispatch])
 

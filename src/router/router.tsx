@@ -11,8 +11,8 @@ import React from "react";
 export const Router = React.memo(() => {
     return (
         <Switch>
-            <PublicRoute path='/signup' component={SignUp} exact/>
-            <PublicRoute path='/signin' component={SignIn} exact/>
+            <PublicRoute path='/signupTC' component={SignUp} exact/>
+            <PublicRoute path='/signinTC' component={SignIn} exact/>
             <PublicRoute path='/forgot-password' component={ForgotPassword} exact/>
             <PrivateRoute path='/dashboard' component={DashBoard} exact/>
             <PrivateRoute path='/images' component={ImgCollections} exact/>

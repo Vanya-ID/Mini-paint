@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
-import {composeWithDevTools} from "redux-devtools-extension";
+import {combineReducers} from "redux";
 import {drawReducer} from "./reducers/drawReducer/drawReducer";
 import {authReducer} from "./reducers/authReducer/authReducer";
 import {imagesReducer} from "./reducers/imagesReducer/imagesReducer";
+import {configureStore} from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 
 
 const rootReducer = combineReducers({
@@ -12,10 +12,12 @@ const rootReducer = combineReducers({
     images: imagesReducer
 })
 
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-)
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: false
+    }).prepend(thunk)
+})
 
 export type RootState = ReturnType<typeof rootReducer>
 

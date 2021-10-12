@@ -1,25 +1,27 @@
-import {Dispatch} from "redux";
-import {SAVE_IMAGE} from "../../../../../constants/constants";
 import {databaseWorker} from "../../../../../imagesWorker/databaseWorker/databaseWorker";
 import {storageWorker} from "../../../../../imagesWorker/storageWorker/storageWorker";
+import {saveImage} from "../../../../reducers/imagesReducer/imagesReducer";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
-export const saveImageAC = (imgURL: string, imageName: string, userName: string) => ({
-    type: SAVE_IMAGE,
-    imgURL,
-    userName,
-    imageName
-} as const)
+type saveImageTCType = {
+    imgURL: string, imageName: string, userName: string
+}
 
-export const saveImageTC = (imgURL: string, imageName: string, userName: string) => {
-    return async (dispatch: Dispatch) => {
+export const saveImageTC = createAsyncThunk('images/saveImage', async ({
+                                                                             imgURL,
+                                                                             imageName,
+                                                                             userName
+                                                                         }: saveImageTCType, thunkAPI) => {
         try {
             await storageWorker.saveImgToCollections(imgURL, imageName)
             await databaseWorker.saveImgToImages(imgURL, imageName, userName)
-            dispatch(saveImageAC(imgURL, imageName, userName))
+            const payload = {imgURL, imageName, userName}
+            thunkAPI.dispatch(saveImage(payload))
         } catch (e) {
             console.log(e)
         }
 
     }
-}
+)
+
