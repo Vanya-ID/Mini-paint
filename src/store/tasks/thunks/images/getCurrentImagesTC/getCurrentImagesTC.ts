@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {ImgType} from "../../../../reducers/imagesReducer/imagesType";
 import {GET_CURRENT_IMAGES} from "../../../../../constants/constants";
-import {getImagesWorker} from "../../../../../imagesWorker/getImagesWorker/getImagesWorker";
+import {storageWorker} from "../../../../../imagesWorker/storageWorker/storageWorker";
 
 
 export const setCurrentImagesAC = (payload: ImgType[], userName: string) => ({
@@ -13,7 +13,7 @@ export const setCurrentImagesAC = (payload: ImgType[], userName: string) => ({
 export const getCurrentImagesTC = (userName: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await getImagesWorker.getCurrentImages()
+            const response = await storageWorker.getCurrentImages()
             dispatch(setCurrentImagesAC(response, userName))
         } catch (e) {
             console.log(e)

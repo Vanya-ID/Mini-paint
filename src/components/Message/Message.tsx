@@ -4,7 +4,7 @@ import {MessagePropsType} from "./Message.type";
 
 
 export const Message: FC<MessagePropsType> = React.memo(({msg, type}) => {
-    msg = msg.replace(/firebase: /ig, '').split('.', 1).join('')
+    if (msg) msg = msg.replace(/firebase: /ig, '').split('.', 1).join('')
     return (
         <MessageBlock type={type}>
             <div>{msg}</div>

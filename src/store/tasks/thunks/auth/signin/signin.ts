@@ -7,15 +7,20 @@ import {setError} from "../setError/setError";
 export interface SignInData {
     email: string
     password: string
+    onError: () => void
 }
 
-export const signin = (data: SignInData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
+export const signin = (data: SignInData): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
             await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        } catch (err: any) {
-            onError()
-            dispatch(setError(err.message))
+        } catch (err) {
+            data.onError()
+            let errMessage = 'Failed to do some exceptional'
+            if (err instanceof Error) {
+                errMessage = err.message
+            }
+            dispatch(setError(errMessage))
         }
     }
 }

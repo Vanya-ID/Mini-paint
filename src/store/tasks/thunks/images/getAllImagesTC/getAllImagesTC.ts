@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {ImgType} from "../../../../reducers/imagesReducer/imagesType";
 import {GET_ALL_IMAGES} from "../../../../../constants/constants";
-import {getImagesWorker} from "../../../../../imagesWorker/getImagesWorker/getImagesWorker";
+import {storageWorker} from "../../../../../imagesWorker/storageWorker/storageWorker";
 
 
 export const getAllImagesAC = (payload: ImgType[]) => ({
@@ -12,7 +12,7 @@ export const getAllImagesAC = (payload: ImgType[]) => ({
 export const getAllImagesTC = () => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await getImagesWorker.getAllImages()
+            const response = await storageWorker.getAllImages()
             dispatch(getAllImagesAC(response))
         } catch (e) {
             console.log(e)

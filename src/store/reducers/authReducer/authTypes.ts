@@ -21,8 +21,6 @@ export interface AuthState {
 }
 
 
-
-
 export type AuthAction =
     SetUserAction
     | SetLoadingAction

@@ -5,14 +5,22 @@ import firebase from "firebase/compat";
 import {setSuccess} from "../setSuccess/setSuccess";
 import {setError} from "../setError/setError";
 
+type sendPasswordResetEmailType = {
+    email: string
+    successMsg: string
+}
 
-export const sendPasswordResetEmail = (email: string, successMsg: string): ThunkAction<void, RootState, null, AuthAction> => {
+export const sendPasswordResetEmail = (data: sendPasswordResetEmailType): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
-            await firebase.auth().sendPasswordResetEmail(email)
-            dispatch(setSuccess(successMsg))
-        } catch (err: any) {
-            dispatch(setError(err.message))
+            await firebase.auth().sendPasswordResetEmail(data.email)
+            dispatch(setSuccess(data.successMsg))
+        } catch (err) {
+            let errMessage = 'Failed to do some exceptional'
+            if(err instanceof Error){
+                errMessage = err.message
+            }
+            dispatch(setError(errMessage))
         }
     }
 }

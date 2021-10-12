@@ -2,15 +2,17 @@ import {AuthAction, User} from "../../../../reducers/authReducer/authTypes";
 import {ThunkAction} from "redux-thunk";
 import {RootState} from "../../../../index";
 import firebase from "firebase/compat";
-import {SET_ERROR, SET_USER} from "../../../../../constants/constants";
+import {SET_USER} from "../../../../../constants/constants";
+import {setError} from "../setError/setError";
 
 export interface SignUpData {
     firstName: string
     email: string
     password: string
+    onError: () => void
 }
 
-export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
+export const signup = (data: SignUpData): ThunkAction<void, RootState, null, AuthAction> => {
     return async dispatch => {
         try {
             const res = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
@@ -27,12 +29,13 @@ export const signup = (data: SignUpData, onError: () => void): ThunkAction<void,
                     payload: userData
                 })
             }
-        } catch (err: any) {
-            onError()
-            dispatch({
-                type: SET_ERROR,
-                payload: err.message
-            })
+        } catch (err) {
+            data.onError()
+            let errMessage = 'Failed to do some exceptional'
+            if (err instanceof Error) {
+                errMessage = err.message
+            }
+            dispatch(setError(errMessage))
         }
     }
 }
