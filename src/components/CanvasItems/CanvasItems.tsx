@@ -14,7 +14,7 @@ import {
 import {FormButton} from "../../shared/styles";
 import {ImageNameModal} from "../ImageNameModal/ImageNameModal";
 import {useDispatch} from "react-redux";
-import {setInstrument} from "../../store/actions/drawActions/setInstrument/setInstrument";
+import {setInstrument} from "../../store/actions/drawActions/setInstrument";
 import {InstrumentsType} from "../../store/reducers/drawReducer/drawTypes";
 
 // @ts-ignore

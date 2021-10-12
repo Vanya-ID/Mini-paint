@@ -1,4 +1,4 @@
-import {setInstrument} from "../../actions/drawActions/setInstrument/setInstrument";
+import {setInstrument} from "../../actions/drawActions/setInstrument";
 
 export type InitialType = {
     instrument: InstrumentsType

@@ -37,17 +37,9 @@ export const Login: FC<LoginPropsType> = React.memo(({type, eventFunction}) => {
         e.preventDefault()
         setLoading(true)
         await dispatch(eventFunction(data))
-        // dispatch(signup({email, password, firstName}))
-        // dispatch(signin({email, password}))
-
         setLoading(false)
     }, [dispatch, email, firstName, password, eventFunction])
-    // submitHandler = (e: FormEvent) => {
-    //     e.preventDefault()
-    //     setLoading(true)
-    //     type === 'Sign Up' && dispatch(signup({email, password, firstName}, () => setLoading(false)))
-    //     type === 'Sign In' && dispatch(signin({email, password}, () => setLoading(false)))
-    // }
+
 
     return (
         <FormSection>
