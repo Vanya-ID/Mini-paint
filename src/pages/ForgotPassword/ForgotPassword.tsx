@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import {Login} from "../Login/Login";
-import {sendPasswordResetEmailTC} from "../../store/tasks/thunks/auth/sendPasswordResetEmail/sendPasswordResetEmailTC";
+import {sendPasswordResetEmailRequest} from "../../store/tasks/sagas/auth/sendPasswordResetEmail/sendPasswordResetEmailTC";
 
-export const ForgotPassword: FC =  React.memo(() => {
+export const ForgotPassword: FC = React.memo(() => {
 
     return (
-        <Login type='Reset Password' eventFunction={sendPasswordResetEmailTC}/>
+        <Login type='Reset Password' eventFunction={sendPasswordResetEmailRequest}/>
     )
 })

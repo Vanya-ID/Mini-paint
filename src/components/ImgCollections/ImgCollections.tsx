@@ -4,8 +4,8 @@ import {FormButton} from "../../shared/styles";
 import {ImgItem} from "../ImgItem/ImgItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getImages} from "../../reselects/reselect";
-import {getAllImagesTC} from "../../store/tasks/thunks/images/getAllImagesTC/getAllImagesTC";
-import {getCurrentImagesTC} from "../../store/tasks/thunks/images/getCurrentImagesTC/getCurrentImagesTC";
+import {getAllImagesRequest} from "../../store/tasks/sagas/images/getAllImagesTC/getAllImagesTC";
+import {getCurrentImagesRequest} from "../../store/tasks/sagas/images/getCurrentImagesTC/getCurrentImagesTC";
 
 
 export const ImgCollections: FC = React.memo(() => {
@@ -22,9 +22,9 @@ export const ImgCollections: FC = React.memo(() => {
 
     const searchButtonHandler = useCallback(async () => {
         if (!inputText) {
-            await dispatch(getAllImagesTC())
+            await dispatch(getAllImagesRequest())
         } else {
-             await dispatch(getCurrentImagesTC(inputText))
+            await dispatch(getCurrentImagesRequest(inputText))
         }
     }, [inputText, dispatch])
 

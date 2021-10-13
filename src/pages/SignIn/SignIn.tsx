@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import {Login} from "../Login/Login";
-import {signinTC} from "../../store/tasks/thunks/auth/signin/signinTC";
+import {signInRequest} from "../../store/tasks/sagas/auth/signin/signinTC";
 
-export const SignIn: FC =  React.memo(() => {
+export const SignIn: FC = React.memo(() => {
     return (
-      <Login type='Sign In' eventFunction={signinTC}/>
+        <Login type='Sign In' eventFunction={signInRequest}/>
     )
 })

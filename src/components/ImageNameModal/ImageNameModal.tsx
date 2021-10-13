@@ -3,8 +3,8 @@ import {FormButton} from "../../shared/styles";
 import {CloseModal, Modal, ModalBackground, ModalContainer} from "./ImageNameModal.style";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserName} from "../../reselects/reselect";
-import {saveImageTC} from "../../store/tasks/thunks/images/saveImageTC/saveImageTC";
 import {ModalProps} from "./ImageNameModal.type";
+import {saveImageRequest} from "../../store/tasks/sagas/images/saveImageTC/saveImageTC";
 
 export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, title, canvasRef}) => {
     const [imageName, setImageName] = useState<string>('')
@@ -16,7 +16,7 @@ export const ImageNameModal: React.FC<ModalProps> = React.memo(({closeModal, tit
     const saveImg = useCallback(() => {
         if (canvasRef.current === null) throw new Error('Could not get сфтмфы');
         const imgURL = canvasRef.current.toDataURL()
-        if (userName) dispatch(saveImageTC({imgURL, imageName, userName}))
+        if (userName) dispatch(saveImageRequest({imgURL, imageName, userName}))
         closeModal(false)
     }, [canvasRef, closeModal, dispatch, imageName])
 

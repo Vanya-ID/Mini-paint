@@ -1,7 +1,8 @@
-import {User} from "../../../../reducers/authReducer/authTypes";
-import firebase from "firebase/compat";
 import {setError, setUser} from "../../../../reducers/authReducer/authReducer";
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import firebase from "firebase/compat";
+import {User} from "../../../../reducers/authReducer/authTypes";
+import {createAction, PayloadAction} from "@reduxjs/toolkit";
+import {call, put, takeLatest} from "redux-saga/effects";
 
 export interface SignUpData {
     firstName: string
@@ -10,8 +11,10 @@ export interface SignUpData {
     onError: () => void
 }
 
+export const signUpRequest = createAction<SignUpData>('signUpRequest')
 
-export const signupTC = createAsyncThunk('auth/signup', async (data: SignUpData, thunkAPI) => {
+
+export const signupTC = async (data: SignUpData) => {
     try {
         const res = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
         if (res.user) {
@@ -22,15 +25,30 @@ export const signupTC = createAsyncThunk('auth/signup', async (data: SignUpData,
                 createAt: firebase.firestore.FieldValue.serverTimestamp()
             }
             await firebase.firestore().collection('/users').doc(res.user.uid).set(userData)
-            thunkAPI.dispatch(setUser({user: userData}))
+            return userData
         }
     } catch (err) {
         data.onError()
+    }
+}
+
+function* signUpWorker(action: PayloadAction<SignUpData>) {
+    try {
+        const userData: User = yield call(signupTC, action.payload);
+        yield put(setUser({user: userData}))
+    } catch (err) {
         let errMessage = 'Failed to do some exceptional'
         if (err instanceof Error) {
             errMessage = err.message
         }
-        thunkAPI.dispatch(setError({error: errMessage}))
+        yield put(setError({error: errMessage}))
     }
-})
+}
+
+export function* signUpWatcher() {
+    yield takeLatest(signUpRequest.type, signUpWorker);
+}
+
+
+
 

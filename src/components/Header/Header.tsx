@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FormButton} from "../../shared/styles";
 import {ButtonContainer, HeaderContainer} from "./Header.style";
 import {getAuthenticated} from "../../reselects/reselect";
-import {signoutTC} from "../../store/tasks/thunks/auth/signout/signoutTC";
+import {signOutRequest} from "../../store/tasks/sagas/auth/signout/signoutTC";
 
 export const Header: FC = React.memo(() => {
     const history = useHistory()
@@ -12,7 +12,7 @@ export const Header: FC = React.memo(() => {
     const authenticated = useSelector(getAuthenticated)
 
     const logoutClickHandler = useCallback(() => {
-        dispatch(signoutTC())
+        dispatch(signOutRequest())
     }, [dispatch])
 
     const signupHandler = useCallback(() => {
